@@ -19,6 +19,7 @@ def consolidate_cart(cart)
             clearance: properties[:clearance],
             count: 1
           }
+          # binding.pry    
       end
     end
 # binding.pry
@@ -28,7 +29,22 @@ end
 
 
 def apply_coupons(cart, coupons)
-  # code here
+# binding.pry  
+  #cart is defined => {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+  #coupons => [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+  math=nil
+  cart.each do |item| 
+    item.each do |name, properties|    
+      if coupons.include?(name)
+        cart[name + "W/COUPON"]=
+          {
+            price: properties[:price],
+            clearance: properties[:clearance],
+            count: 1        }
+      end
+    end
+  end
+  # binding.pry
 end
 
 def apply_clearance(cart)
