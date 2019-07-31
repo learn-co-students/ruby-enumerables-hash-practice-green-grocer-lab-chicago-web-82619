@@ -9,24 +9,21 @@ require 'pry'
 def consolidate_cart(cart)
   new_cart = Hash.new
   cart.each do |item| #{"TEMPEH"=>{:price=>3.0, :clearance=>true}
-    # binding.pry    
     # if item is already in new_cart add 1 to count
     
     # else make a new item in new_cart
     
     item.each do |name, properties|
-      new_cart[name] =
+      new_cart[name]=
         {
-          name: name[:name],
-          price = properties[:price],
-          clearance = properties[:clearance],
+          price: properties[:price],
+          clearance: properties[:clearance],
           count: 1
         }
+          # binding.pry    
     end
-
   end
   new_cart
-  
 end
 
 
