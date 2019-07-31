@@ -29,22 +29,26 @@ end
 
 
 def apply_coupons(cart, coupons)
-# binding.pry  
+# binding.pry
   #cart is defined => {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
   #coupons => [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
-  math=nil
-  cart.each do |item| 
-    item.each do |name, properties|    
-      if coupons.include?(name)
-        cart[name + "W/COUPON"]=
+  match=nil
+  new_cart = {}
+  cart.each do |name_item, properties| 
+      if coupons.any? { |each_coupon| name_item == each_coupon[:item]}
+        new_cart[name_item + " W/COUPON"]=
           {
             price: properties[:price],
             clearance: properties[:clearance],
-            count: 1        }
+            count: 1        
+          }
+      else
+        new_cart[name_item] = properties
       end
-    end
   end
+  match
   # binding.pry
+  new_cart
 end
 
 def apply_clearance(cart)
