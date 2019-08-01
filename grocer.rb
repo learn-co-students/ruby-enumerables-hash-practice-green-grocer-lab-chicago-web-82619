@@ -27,33 +27,6 @@ def consolidate_cart(cart)
   new_cart
 end
 
-
-# def apply_coupons(cart, coupons)
-# # binding.pry
-#   #cart is defined => {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
-#   #coupons => [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
-#   match=nil
-#   new_cart = {}
-#   cart.each do |name_item, properties| 
-#       if coupon = coupons.find { |each_coupon| name_item == each_coupon[:item]}
-# binding.pry
-
-#         new_cart[name_item + " W/COUPON"]=
-#           {
-#             price: coupon[:cost] / coupon[:num],
-#             clearance: properties[:clearance],
-#             count: coupon[:num]        
-#           } #=> {"AVOCADO W/COUPON"=>{:price=>3.0, :clearance=>true, :count=>1}}
-#           new_cart[name_item] = properties
-#           new_cart[name_item][:count] = new_cart[name_item][:count] - coupon[:num]
-#       else
-#         new_cart[name_item] = properties
-#       end
-#   end
-#   match
-#   new_cart
-# end
-
 def apply_coupons(cart, coupons)
   coupons.each do |coupon|
     coupon_item = coupon[:item]
