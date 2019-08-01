@@ -19,7 +19,7 @@ def consolidate_cart(cart)
             clearance: properties[:clearance],
             count: 1
           }
-          # binding.pry    
+          # binding.pry
       end
     end
 # binding.pry
@@ -35,19 +35,22 @@ def apply_coupons(cart, coupons)
   match=nil
   new_cart = {}
   cart.each do |name_item, properties| 
-      if coupons.any? { |each_coupon| name_item == each_coupon[:item]}
+    
+      if coupon_item = coupons.find { |each_coupon| name_item == each_coupon[:item]}
         new_cart[name_item + " W/COUPON"]=
           {
-            price: properties[:price],
+            price: coupon_item[:cost] / coupon_item[:num],
             clearance: properties[:clearance],
-            count: 1        
-          }
+            count: coupon_item[:num]        
+          } #=> {"AVOCADO W/COUPON"=>{:price=>3.0, :clearance=>true, :count=>1}}
+  # binding.pry
+          new_cart[name_item] = properties
+          new_cart[name_item][:count] = new_cart[name_item][:count] - coupon_item[:num]
       else
         new_cart[name_item] = properties
       end
   end
   match
-  # binding.pry
   new_cart
 end
 
