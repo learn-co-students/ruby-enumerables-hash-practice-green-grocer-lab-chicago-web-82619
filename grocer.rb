@@ -28,6 +28,7 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
+  # binding.pry
   coupons.each do |coupon|
     coupon_item = coupon[:item]
     if cart.keys.include? coupon_item
@@ -53,7 +54,12 @@ end
 
 
 def apply_clearance(cart)
-  # code here
+  cart.each do |item, properties|
+      if properties[:clearance]
+        properties[:price] = properties[:price] - properties[:price] / 20
+      end
+  end
+  cart
 end
 
 def checkout(cart, coupons)
