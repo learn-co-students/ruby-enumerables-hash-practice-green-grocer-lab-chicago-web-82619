@@ -28,31 +28,56 @@ def consolidate_cart(cart)
 end
 
 
-def apply_coupons(cart, coupons)
+# def apply_coupons(cart, coupons)
+# # binding.pry
+#   #cart is defined => {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+#   #coupons => [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+#   match=nil
+#   new_cart = {}
+#   cart.each do |name_item, properties| 
+#       if coupon = coupons.find { |each_coupon| name_item == each_coupon[:item]}
 # binding.pry
-  #cart is defined => {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
-  #coupons => [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
-  match=nil
-  new_cart = {}
-  cart.each do |name_item, properties| 
-    
-      if coupon_item = coupons.find { |each_coupon| name_item == each_coupon[:item]}
-        new_cart[name_item + " W/COUPON"]=
-          {
-            price: coupon_item[:cost] / coupon_item[:num],
-            clearance: properties[:clearance],
-            count: coupon_item[:num]        
-          } #=> {"AVOCADO W/COUPON"=>{:price=>3.0, :clearance=>true, :count=>1}}
-  # binding.pry
-          new_cart[name_item] = properties
-          new_cart[name_item][:count] = new_cart[name_item][:count] - coupon_item[:num]
-      else
-        new_cart[name_item] = properties
+
+#         new_cart[name_item + " W/COUPON"]=
+#           {
+#             price: coupon[:cost] / coupon[:num],
+#             clearance: properties[:clearance],
+#             count: coupon[:num]        
+#           } #=> {"AVOCADO W/COUPON"=>{:price=>3.0, :clearance=>true, :count=>1}}
+#           new_cart[name_item] = properties
+#           new_cart[name_item][:count] = new_cart[name_item][:count] - coupon[:num]
+#       else
+#         new_cart[name_item] = properties
+#       end
+#   end
+#   match
+#   new_cart
+# end
+
+def apply_coupons(cart, coupons)
+  coupons.each do |coupon|
+    coupon_item = coupon[:item]
+    if cart.keys.include? coupon_item
+# binding.pry
+        if cart[coupon_item][:count] >= coupon[:num]
+          discounted_item = "#{coupon_item} W/COUPON"
+          if cart[discounted_item]
+            cart[discounted_item][:count] += coupon[:num]
+          else
+            # binding.pry
+            cart[discounted_item] = {
+              count: coupon[:num],
+              price:  coupon[:cost]/coupon[:num],
+              clearance: cart[coupon_item][:clearance]
+            }
+          end
+          cart[coupon_item][:count] -= coupon[:num]
       end
+    end
   end
-  match
-  new_cart
+  cart
 end
+
 
 def apply_clearance(cart)
   # code here
@@ -61,3 +86,5 @@ end
 def checkout(cart, coupons)
   # code here
 end
+
+
