@@ -1,9 +1,15 @@
 def consolidate_cart(cart)
   # code here
-  hash = {}
-  cart.each do |el|
-    hash[:el][:count] += 1
+  hash = Hash[*cart.collect{|h| h.to_a}.flatten]
+  hash.each do |el,key|
+    key[:count] = 0
   end
+
+  cart.each do |el|
+    puts hash
+    hash[el][:count] += 1 
+  end
+  
   hash
 end
 
